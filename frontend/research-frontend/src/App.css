@@ -5,6 +5,26 @@ body {
     background-color: #121212;
     color: #e0e0e0;
   }
+
+  .inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .inner-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   
   .App {
     display: flex;
