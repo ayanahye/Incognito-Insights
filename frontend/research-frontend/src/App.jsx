@@ -7,7 +7,7 @@ import './App.css';
 const App = () => {
   const [comments, setComments] = useState([]);
   const [replyTo, setReplyTo] = useState(null); // Track the comment being replied to
-  const [showReplyForm, setShowReplyForm] = useState(false); // Track if the reply form should be shown
+  const [showReplyForm, setShowReplyForm] = useState(true); // Track if the reply form should be shown
 
   useEffect(() => {
     fetchComments();
@@ -27,15 +27,24 @@ const App = () => {
     setShowReplyForm(true); // Show the reply form
   };
 
-  const closeReplyForm = () => {
+  const handleCloseReplyForm = () => {
     setReplyTo(null); // Clear the comment being replied to
     setShowReplyForm(false); // Hide the reply form
+  };
+
+  const handlePostNewComment = () => {
+    setShowReplyForm(true); // Show the comment form for posting a new comment
   };
 
   return (
     <div className="App">
       <h1>Research Hub</h1>
-      {showReplyForm && <CommentForm fetchComments={fetchComments} parentId={replyTo._id} onClose={closeReplyForm} />}
+      {showReplyForm && !replyTo && (
+        <CommentForm fetchComments={fetchComments} onClose={handleCloseReplyForm} />
+      )}
+      {showReplyForm && replyTo && (
+        <CommentForm fetchComments={fetchComments} parentId={replyTo._id} onClose={handleCloseReplyForm} />
+      )}
       <CommentsList comments={comments} onReply={handleReply} />
     </div>
   );
