@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CommentForm from './forms/CommentForm';
 import CommentsList from './components/CommentsList';
+import CommentPage from './pages/CommentPage'; // Import the CommentPage component
 import './App.css';
 
 const App = () => {
