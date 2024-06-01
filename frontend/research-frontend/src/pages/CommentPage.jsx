@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CommentsList from '../components/CommentsList'; // Import your CommentsList component
-import CommentForm from '../forms/CommentForm'; // Import your CommentForm component
+import CommentsList from '../components/CommentsList'; 
+import CommentForm from '../forms/CommentForm'; 
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchComments();
@@ -20,14 +22,14 @@ const HomePage = () => {
   };
 
   const handlePostNewComment = async () => {
-    // Logic to post a new comment
+
     console.log('Posting new comment...');
-    fetchComments(); // Refresh comments after posting
+    fetchComments();
   };
 
   const handleReply = async (comment) => {
-    // Implement logic to handle replying to a comment
-    console.log('Replying to:', comment);
+
+    navigate(`/reply/${comment._id}`);
   };
 
   return (

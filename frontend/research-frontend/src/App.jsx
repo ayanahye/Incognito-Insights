@@ -1,22 +1,19 @@
 import React from 'react';
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import CommentPage from './pages/CommentPage'; // Import the CommentPage component
-import ReplyPage from './pages/ReplyPage'; // Import the ReplyPage component
+import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
+import CommentPage from './pages/CommentPage';
+import ReplyPage from './pages/ReplyPage'; 
 import './App.css';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" >
-      <Route index element={<CommentPage />} />
-      <Route path="reply/:id" element={<ReplyPage />} />
-    </Route>
-  )
-);
 
 const App = () => {
   return (
     <div className='App'>
-      <RouterProvider router={router}/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<CommentPage />} />
+          <Route path="/reply/:id" element={<ReplyPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 };
