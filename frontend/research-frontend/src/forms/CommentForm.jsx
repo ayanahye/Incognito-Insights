@@ -30,7 +30,7 @@ const CommentForm = ({ fetchComments }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form1'>
       <input
         type="text"
         placeholder="Your name"

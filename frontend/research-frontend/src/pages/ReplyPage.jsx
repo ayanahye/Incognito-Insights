@@ -42,15 +42,18 @@ const ReplyPage = () => {
       <div className='reply-comment'>
         <ReplyForm fetchReplies={fetchCommentAndReplies} parentId={comment?._id} />
       </div>
-      <div className='replies-container'>
-        <h2>Replies</h2>
-        {replies.map(reply => (
-          <div key={reply._id} className='reply'>
-            <h3>{reply.username}</h3>
-            <p>{reply.comment}</p>
-            <small>{new Date(reply.date).toLocaleString()}</small>
-          </div>
-        ))}
+      <h2>Replies</h2>
+      <div className='comments'>
+        {replies.map((reply, index) => (
+            <div
+              key={reply._id}
+              className={`comment ${index % 2 === 0 ? 'left' : 'right'}`}
+            >
+              <h3>{reply.username}</h3>
+              <p>{reply.reply}</p>
+              <small>{new Date(reply.date).toLocaleString()}</small>
+            </div>
+          ))}
       </div>
     </div>
   );

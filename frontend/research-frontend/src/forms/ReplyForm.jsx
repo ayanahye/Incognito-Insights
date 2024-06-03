@@ -30,7 +30,7 @@ const ReplyForm = ({ fetchReplies, parentId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form2'>
       <input
         type="text"
         placeholder="Your name"
