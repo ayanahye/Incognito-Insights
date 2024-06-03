@@ -4,6 +4,8 @@ import axios from 'axios';
 const CommentForm = ({ fetchComments }) => {
   const [username, setUsername] = useState('');
   const [comment, setComment] = useState('');
+  const [wordCount, setWordCount] = useState(0);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,8 +14,26 @@ const CommentForm = ({ fetchComments }) => {
       fetchComments();
       setUsername('');
       setComment('');
+      setWordCount(0);
     } catch (error) {
       console.error('There was an error submitting the comment:', error);
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const text = e.clipboardData.getData('text/plain');
+    document.execCommand('insertText', false, text);
+  };
+
+  const handleInputChange = (e) => {
+    const inputText = e.target.value;
+    const words = inputText.trim().split(/\s+/); 
+    setWordCount(words.length);
+    if (words.length > 500) {
+      setComment(words.slice(0, 500).join(' '));
+    } else {
+      setComment(inputText);
     }
   };
 
@@ -38,7 +58,15 @@ const CommentForm = ({ fetchComments }) => {
         onChange={(e) => setUsername(e.target.value)}
         required
       />
-      <div contentEditable="true" id="comment-expand" className="comment-input" placeholder="Your comment" onInput={(e) => setComment(e.target.innerHTML)}></div>
+      <textarea
+        placeholder="Your comment"
+        id="comment-expand" className="comment-input"
+        value={comment}
+        onChange={handleInputChange}
+        onPaste={handlePaste}
+        required
+      />
+      <div>Words: {wordCount}/500</div>
       <div>
         <button type="button" onClick={handleBoldClick}><strong>B</strong></button>
         <button type="button" onClick={handleItalicClick}><em>I</em></button>

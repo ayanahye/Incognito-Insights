@@ -4,6 +4,7 @@ import axios from 'axios';
 const ReplyForm = ({ fetchReplies, parentId }) => {
   const [username, setUsername] = useState('');
   const [reply, setReply] = useState('');
+  const [wordCount, setWordCount] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,9 +13,27 @@ const ReplyForm = ({ fetchReplies, parentId }) => {
       fetchReplies();
       setUsername('');
       setReply('');
+      setWordCount(0);
     } catch (error) {
       console.error('There was an error submitting the reply:', error);
     }
+  };
+
+  const handleInputChange = (e) => {
+    const inputText = e.target.value;
+    const words = inputText.trim().split(/\s+/); 
+    setWordCount(words.length);
+    if (words.length > 500) {
+      setReply(words.slice(0, 500).join(' '));
+    } else {
+      setReply(inputText);
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const text = e.clipboardData.getData('text/plain');
+    document.execCommand('insertText', false, text);
   };
 
   const handleBoldClick = () => {
@@ -38,7 +57,15 @@ const ReplyForm = ({ fetchReplies, parentId }) => {
         onChange={(e) => setUsername(e.target.value)}
         required
       />
-      <div contentEditable="true" id="comment-expand" className="comment-input" placeholder="Your comment" onInput={(e) => setReply(e.target.innerHTML)}></div>
+      <textarea
+        placeholder="Your comment"
+        id="comment-expand" className="comment-input"
+        value={reply}
+        onChange={handleInputChange}
+        onPaste={handlePaste}
+        required
+      />
+      <div>Words: {wordCount}/500</div>
       <div>
         <button type="button" onClick={handleBoldClick}><strong>B</strong></button>
         <button type="button" onClick={handleItalicClick}><em>I</em></button>

@@ -28,7 +28,7 @@ const HomePage = () => {
 
   return (
     <div className='inner'>
-      <h1 className='title'>Research Hub</h1>
+      <h1 className='title'>Incognito Insight</h1>
       <div className='inner-form'>
         <CommentForm fetchComments={fetchComments} />
         <CommentsList comments={comments} onReply={handleReply} />

@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const commentRoutes = require('./routes/commentRoutes');
 require('dotenv').config();
+const scheduler = require('./scheduler'); 
+
 const app = express();
 
 // middleware

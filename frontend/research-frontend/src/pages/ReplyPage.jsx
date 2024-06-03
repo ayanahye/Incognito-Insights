@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import CommentForm from '../forms/CommentForm';
 import ReplyForm from '../forms/ReplyForm';
 
@@ -30,6 +30,7 @@ const ReplyPage = () => {
   return (
     <div className='inner'>
       <h1 className='title'>Reply</h1>
+      <Link to="/" className="home-button">Return</Link>
       <div className='comment-container'>
         {comment && (
           <div className="" id="comment2">

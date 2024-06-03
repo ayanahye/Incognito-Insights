@@ -75,7 +75,7 @@ body {
   .form1 {
     display: flex;
     flex-direction: column;
-    max-width: 800px; /* Adjusted max-width */
+    max-width: 800px; 
     background-color: #1e1e1e;
     padding: 20px;
     width: 100%;
@@ -86,7 +86,7 @@ body {
   .form2 {
     display: flex;
     flex-direction: column;
-    max-width: 800px; /* Adjusted max-width */
+    max-width: 800px; 
     background-color: #1e1e1e;
     padding: 20px;
     border-radius: 8px;
@@ -200,6 +200,22 @@ body {
   .right {
     align-self: flex-end;
   }
+
+  .home-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #bb86fc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .home-button:hover {
+    background-color: #a256e0;
+  }
+  
   
   @media screen and (max-width: 600px) {
     .App {
