@@ -21,12 +21,6 @@ const HomePage = () => {
     }
   };
 
-  const handlePostNewComment = async () => {
-
-    console.log('Posting new comment...');
-    fetchComments();
-  };
-
   const handleReply = async (comment) => {
 
     navigate(`/reply/${comment._id}`);

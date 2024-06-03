@@ -3,27 +3,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import CommentForm from '../forms/CommentForm';
+import ReplyForm from '../forms/ReplyForm';
 
 const ReplyPage = () => {
   const { id } = useParams();
   const [comment, setComment] = useState(null);
   const [replies, setReplies] = useState([]);
 
-  useEffect(() => {
-    const fetchCommentAndReplies = async () => {
-      try {
-        const commentRes = await axios.get(`http://localhost:5000/api/comment/${id}`);
-        setComment(commentRes.data);
-        console.log("F u");
-        const repliesRes = await axios.get(`http://localhost:5000/api/comment/${id}/replies`);
-        console.log("please");
-        console.log(repliesRes.data);
-        setReplies(repliesRes.data);
-      } catch (error) {
-        console.error('There was an error fetching the comment and replies:', error);
-      }
-    };
+  const fetchCommentAndReplies = async () => {
+    try {
+      const commentRes = await axios.get(`http://localhost:5000/api/comment/${id}`);
+      setComment(commentRes.data);
+      const repliesRes = await axios.get(`http://localhost:5000/api/comment/${id}/replies`);
+      setReplies(repliesRes.data);
+    } catch (error) {
+      console.error('There was an error fetching the comment and replies:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchCommentAndReplies();
   }, [id]);
 
@@ -42,7 +40,7 @@ const ReplyPage = () => {
         )}
       </div>
       <div className='reply-comment'>
-        <CommentForm fetchComments={() => {}} parentId={comment?._id} />
+        <ReplyForm fetchReplies={fetchCommentAndReplies} parentId={comment?._id} />
       </div>
       <div className='replies-container'>
         <h2>Replies</h2>

@@ -1,4 +1,3 @@
-
 const Comment = require('../models/commentModel');
 const Reply = require('../models/replyModel');
 
@@ -37,8 +36,6 @@ const getRepliesForComment = async (req, res) => {
     try {
         const commentId = req.params.id;
         const comment = await Comment.findById(commentId).populate('replies');
-        console.log("hey");
-        console.log(comment.replies);
         if (!comment) {
             return res.status(404).json({ message: 'Comment not found' });
         }
@@ -48,6 +45,20 @@ const getRepliesForComment = async (req, res) => {
     }
 };
 
+const createReply = async (req, res) => {
+    try {
+        const commentId = req.params.id;
+        const reply = new Reply(req.body);
+        await reply.save();
 
+        const comment = await Comment.findById(commentId);
+        comment.replies.push(reply);
+        await comment.save();
 
-module.exports = { getComments, createComment, getCommentById, getRepliesForComment };
+        res.status(201).json(reply);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+module.exports = { getComments, createComment, getCommentById, getRepliesForComment, createReply };
